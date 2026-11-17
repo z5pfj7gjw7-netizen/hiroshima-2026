@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>2026 廣島・岡山・尾道 8天7夜親子自駕遊 | 繪本行程手冊</title>
+  <meta name="theme-color" content="#FFFCF6" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="廣島岡山自駕" />
+
+  <!-- Google Fonts: Huninn (粉圓體，日系可愛繪本感) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            washi: '#FFFCF6',
+            ink: '#3E3A39',
+            coral: '#F2A497',
+            yamabuki: '#F6D27A',
+            mizuiro: '#A8D3E6',
+            wakatake: '#B9DAA5',
+          },
+          fontFamily: {
+            huninn: ['"Huninn"', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Firebase SDKs (Modular v11.6.1 with robust fallback) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    window.firebaseModules = {
+      initializeApp, getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged,
+      getFirestore, doc, setDoc, getDoc, onSnapshot
+    };
+    window.dispatchEvent(new Event('firebase-loaded'));
+  </script>
+
+  <style>
+    body {
+      background-color: #FFFCF6;
+      color: #3E3A39;
+      font-family: 'Huninn', sans-serif;
+    }
+
+    .ehon-card {
+      background-color: #FFFFFF;
+      border: 3px solid #3E3A39;
+      border-radius: 24px;
+      box-shadow: 4px 4px 0px #3E3A39;
+    }
+
+    .ehon-card-sm {
+      background-color: #FFFFFF;
+      border: 2.5px solid #3E3A39;
+      border-radius: 16px;
+      box-shadow: 3px 3px 0px #3E3A39;
+    }
+
+    .ehon-btn {
+      border: 2.5px solid #3E3A39;
+      border-radius: 14px;
+      box-shadow: 2px 2px 0px #3E3A39;
+      transition: all 0.1s ease;
+    }
+
+    .ehon-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 0px 0px 0px #3E3A39;
+    }
+
+    .ehon-pill {
+      border: 2.5px solid #3E3A39;
+      border-radius: 9999px;
+      box-shadow: 2px 2px 0px #3E3A39;
+    }
+
+    .ehon-input {
+      background-color: #FFFFFF;
+      border: 2.5px solid #3E3A39;
+      border-radius: 14px;
+      padding: 8px 12px;
+      color: #3E3A39;
+      outline: none;
+    }
+
+    .ehon-input:focus {
+      background-color: #FFFDF7;
+      box-shadow: 2px 2px 0px #3E3A39;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .todo-checked {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body class="pb-24">
+
+  <!-- Toast 提示訊息 -->
+  <div id="toast-box" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-200 opacity-0 translate-y-4">
+    <div id="toast-msg" class="bg-[#F6D27A] text-[#3E3A39] border-[3px] border-[#3E3A39] rounded-full px-5 py-2.5 text-sm font-bold shadow-[3px_3px_0px_#3E3A39] whitespace-nowrap">
+      已自動儲存！
+    </div>
+  </div>
+
+  <!-- 頂端固定導覽選單 -->
+  <header class="sticky top-0 z-40 bg-[#FFFCF6]/95 backdrop-blur-sm border-b-[3px] border-[#3E3A39]">
+    <div class="max-w-4xl mx-auto px-3 py-2.5 flex items-center justify-between gap-2">
+      <a href="#top" class="flex items-center gap-2 shrink-0">
+        <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#F2A497] border-[2.5px] border-[#3E3A39] text-base shadow-[2px_2px_0px_#3E3A39]">🍁</span>
+        <span class="font-bold text-base sm:text-lg tracking-wide">廣島・岡山繪本旅</span>
+      </a>
+
+      <nav class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5">
+        <a href="#section-itinerary" class="ehon-btn bg-[#F6D27A] px-3 py-1.5 text-xs sm:text-sm font-bold shrink-0">🗓️ 每日行程</a>
+        <a href="#section-flight-hotel" class="ehon-btn bg-[#A8D3E6] px-3 py-1.5 text-xs sm:text-sm font-bold shrink-0">✈️ 航班住宿</a>
+        <a href="#section-checklists" class="ehon-btn bg-[#B9DAA5] px-3 py-1.5 text-xs sm:text-sm font-bold shrink-0">🎒 清單</a>
+        <button onclick="openSyncModal()" class="ehon-btn bg-[#F2A497] px-3 py-1.5 text-xs sm:text-sm font-bold shrink-0 flex items-center gap-1.5">
+          <span class="inline-block w-2.5 h-2.5 rounded-full bg-green-600 border border-[#3E3A39]" id="sync-status-dot" title="連線同步中"></span>
+          <span> 共享同步</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="max-w-4xl mx-auto px-3 sm:px-5 pt-5 space-y-8">
+
+    <!-- 首頁主視覺繪本橫幅 -->
+    <section class="ehon-card bg-[#FFFFFF] p-4 sm:p-6 relative overflow-hidden">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="ehon-pill bg-[#F6D27A] px-3 py-1 text-xs sm:text-sm font-bold">2026.11.20 (五) – 11.27 (五)</span>
+          <span class="ehon-pill bg-[#B9DAA5] px-3 py-1 text-xs sm:text-sm font-bold">🚗 8天7夜親子自駕</span>
+          <span class="ehon-pill bg-[#A8D3E6] px-3 py-1 text-xs sm:text-sm font-bold">👶 推車友善</span>
+        </div>
+        <button onclick="openPwaModal()" class="ehon-btn bg-[#FFFCF6] px-3 py-1 text-xs font-bold flex items-center gap-1">
+          <span>📲 加到主畫面</span>
+        </button>
+      </div>
+
+      <div class="text-center my-3">
+        <h1 class="text-2xl sm:text-4xl font-bold leading-snug tracking-wide text-[#3E3A39]">
+          廣島・岡山・尾道<br class="sm:hidden" /> 秋日親子自駕繪本手冊
+        </h1>
+        <p class="text-sm sm:text-base mt-1.5 text-[#3E3A39]/80">
+          倉敷運河 2 晚 ➔ 廣島賞楓宮島 3 晚 ➔ 尾道瀨戶內海 2 晚
+        </p>
+      </div>
+
+      <!-- 原創日系繪本風 SVG 橫幅插畫 -->
+      <div class="my-4 rounded-[20px] border-[3px] border-[#3E3A39] bg-[#FFFCF6] overflow-hidden">
+        <svg viewBox="0 0 800 250" class="w-full h-auto block" role="img" aria-label="廣島岡山尾道手繪風景插畫">
+          <rect x="0" y="0" width="800" height="250" fill="#FFFCF6" />
+          <circle cx="685" cy="52" r="28" fill="#F6D27A" stroke="#3E3A39" stroke-width="3" />
+          <path d="M90 58 Q90 42 108 42 Q118 28 138 34 Q155 32 160 46 Q175 48 175 62 Q175 74 158 74 L95 74 Q82 74 82 62 Q82 58 90 58 Z" fill="#FFFFFF" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+          <path d="M430 46 Q430 35 444 35 Q452 24 468 29 Q480 28 484 39 Q495 40 495 50 Q495 59 482 59 L435 59 Q424 59 424 50 Z" fill="#FFFFFF" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+          <path d="M0 165 Q95 95 210 155 Q315 105 430 160 Q545 92 670 155 Q740 120 800 150 L800 185 L0 185 Z" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+          <line x1="250" y1="88" x2="415" y2="132" stroke="#3E3A39" stroke-width="2.5" stroke-dasharray="5 4" />
+          <g transform="translate(318, 102) rotate(14)">
+            <line x1="16" y1="0" x2="16" y2="10" stroke="#3E3A39" stroke-width="2.5" />
+            <rect x="2" y="10" width="28" height="18" rx="6" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5" />
+            <rect x="7" y="14" width="7" height="7" rx="2" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2" />
+            <rect x="18" y="14" width="7" height="7" rx="2" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2" />
+          </g>
+          <rect x="0" y="172" width="800" height="78" fill="#A8D3E6" />
+          <line x1="0" y1="172" x2="800" y2="172" stroke="#3E3A39" stroke-width="3" />
+          <path d="M45 195 Q60 189 75 195 Q90 201 105 195" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round" />
+          <path d="M355 202 Q370 196 385 202 Q400 208 415 202" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round" />
+          <path d="M680 192 Q695 186 710 192 Q725 198 740 192" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round" />
+          <!-- 倉敷白壁 -->
+          <g transform="translate(26, 112)">
+            <rect x="10" y="20" width="68" height="44" rx="4" fill="#FFFFFF" stroke="#3E3A39" stroke-width="3" />
+            <line x1="10" y1="42" x2="78" y2="42" stroke="#3E3A39" stroke-width="2.5" />
+            <line x1="32" y1="42" x2="32" y2="64" stroke="#3E3A39" stroke-width="2.5" />
+            <line x1="55" y1="42" x2="55" y2="64" stroke="#3E3A39" stroke-width="2.5" />
+            <polygon points="2,22 44,4 86,22" fill="#3E3A39" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+            <path d="M92 14 Q104 32 98 56" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round" />
+            <ellipse cx="98" cy="34" rx="8" ry="16" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5" />
+          </g>
+          <g transform="translate(120, 178)">
+            <path d="M5 12 L65 12 L55 24 L15 24 Z" fill="#F6D27A" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+            <circle cx="35" cy="7" r="6" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5" />
+            <path d="M25 8 L45 8" stroke="#3E3A39" stroke-width="3" stroke-linecap="round" />
+          </g>
+          <!-- 嚴島鳥居 -->
+          <g transform="translate(215, 92)">
+            <rect x="24" y="24" width="11" height="72" fill="#F2A497" stroke="#3E3A39" stroke-width="3" />
+            <rect x="75" y="24" width="11" height="72" fill="#F2A497" stroke="#3E3A39" stroke-width="3" />
+            <rect x="14" y="48" width="6" height="44" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5" />
+            <rect x="90" y="48" width="6" height="44" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5" />
+            <rect x="10" y="34" width="90" height="9" rx="3" fill="#F2A497" stroke="#3E3A39" stroke-width="3" />
+            <path d="M2 16 Q55 24 108 16 L104 26 Q55 32 6 26 Z" fill="#F2A497" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+            <rect x="49" y="23" width="12" height="14" rx="2" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5" />
+          </g>
+          <path d="M445 250 Q480 205 565 205 L800 205 L800 250 Z" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3" />
+          <!-- 兔子與車 -->
+          <g transform="translate(495, 166)">
+            <ellipse cx="14" cy="12" rx="4.5" ry="13" transform="rotate(-10 14 12)" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5" />
+            <ellipse cx="25" cy="12" rx="4.5" ry="13" transform="rotate(10 25 12)" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5" />
+            <circle cx="20" cy="36" r="13" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5" />
+            <circle cx="20" cy="24" r="11" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5" />
+            <circle cx="7" cy="40" r="4.5" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5" />
+            <circle cx="23" cy="22" r="1.8" fill="#3E3A39" />
+            <circle cx="26" cy="26" r="2.5" fill="#F2A497" />
+          </g>
+          <g transform="translate(565, 168)">
+            <rect x="26" y="2" width="38" height="9" rx="4.5" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5" />
+            <path d="M12 24 L22 10 L68 10 L78 24 L92 26 Q98 27 98 34 L98 42 L4 42 L4 32 Q4 25 12 24 Z" fill="#F2A497" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+            <path d="M25 13 L42 13 L42 23 L17 23 Z" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round" />
+            <path d="M47 13 L65 13 L73 23 L47 23 Z" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round" />
+            <circle cx="24" cy="42" r="9" fill="#3E3A39" />
+            <circle cx="24" cy="42" r="4" fill="#FFFFFF" />
+            <circle cx="76" cy="42" r="9" fill="#3E3A39" />
+            <circle cx="76" cy="42" r="4" fill="#FFFFFF" />
+          </g>
+          <g transform="translate(175, 42) rotate(20)">
+            <path d="M10 0 L13 7 L20 6 L15 12 L19 18 L11 16 L10 22 L9 16 L1 18 L5 12 L0 6 L7 7 Z" fill="#F2A497" stroke="#3E3A39" stroke-width="2" stroke-linejoin="round" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- 倒數計時與地圖按鈕 -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-stretch">
+        <div class="md:col-span-7 ehon-card-sm bg-[#F6D27A]/35 p-3.5 sm:p-4 flex flex-col justify-center">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs sm:text-sm font-bold flex items-center gap-1.5">
+              <span>⏰</span>
+              <span id="countdown-label">距離 11/20 10:25 抵達廣島機場還有</span>
+            </span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-[#FFFFFF] border-2 border-[#3E3A39] font-bold">2026 秋旅</span>
+          </div>
+          <div id="countdown-display" class="grid grid-cols-4 gap-2 text-center mt-1">
+            <div class="bg-[#FFFFFF] border-[2.5px] border-[#3E3A39] rounded-2xl py-1.5">
+              <div id="cd-days" class="text-xl sm:text-2xl font-bold">--</div>
+              <div class="text-[11px]">天</div>
+            </div>
+            <div class="bg-[#FFFFFF] border-[2.5px] border-[#3E3A39] rounded-2xl py-1.5">
+              <div id="cd-hours" class="text-xl sm:text-2xl font-bold">--</div>
+              <div class="text-[11px]">時</div>
+            </div>
+            <div class="bg-[#FFFFFF] border-[2.5px] border-[#3E3A39] rounded-2xl py-1.5">
+              <div id="cd-mins" class="text-xl sm:text-2xl font-bold">--</div>
+              <div class="text-[11px]">分</div>
+            </div>
+            <div class="bg-[#FFFFFF] border-[2.5px] border-[#3E3A39] rounded-2xl py-1.5">
+              <div id="cd-secs" class="text-xl sm:text-2xl font-bold">--</div>
+              <div class="text-[11px]">秒</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-span-5 flex flex-col justify-between gap-2.5">
+          <a href="https://maps.app.goo.gl/6bhM6E8B2T29ojhs8?g_st=ic" target="_blank" rel="noopener noreferrer"
+             class="ehon-btn bg-[#A8D3E6] p-3.5 flex items-center justify-center gap-2.5 text-center font-bold text-sm sm:text-base flex-1">
+            <span class="text-xl">🗺️</span>
+            <span>開啟 Google Maps 總行程地圖</span>
+          </a>
+          <button onclick="openSyncModal()"
+             class="ehon-btn bg-[#F2A497] p-3 flex items-center justify-center gap-2 text-center font-bold text-sm">
+            <span></span>
+            <span id="room-code-badge">Apple 共享房間：default-room</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 每日行程區 -->
+    <section id="section-itinerary" class="scroll-mt-20 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#F6D27A] border-[2.5px] border-[#3E3A39] text-lg shadow-[2px_2px_0px_#3E3A39]">🗓️</span>
+          <h2 class="text-xl sm:text-2xl font-bold">每日行程時間軸</h2>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button id="toggle-edit-btn" onclick="toggleEditMode()" class="ehon-btn bg-[#FFFFFF] px-3.5 py-2 text-xs sm:text-sm font-bold flex items-center gap-1.5">
+            <span>✏️</span>
+            <span id="toggle-edit-text">編輯行程模式：關</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="edit-mode-banner" class="hidden ehon-card-sm bg-[#F6D27A] p-3.5 flex flex-wrap items-center justify-between gap-2">
+        <div class="text-xs sm:text-sm font-bold flex items-center gap-2">
+          <span>🛠️</span>
+          <span>現場編輯中：可直接新增、修改、排序或刪除，自動同步與本機儲存！</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="openItemModal()" class="ehon-btn bg-[#B9DAA5] px-3 py-1.5 text-xs font-bold">➕ 新增當日行程</button>
+          <button onclick="resetDefaultItinerary()" class="ehon-btn bg-[#FFFFFF] px-3 py-1.5 text-xs font-bold">↺ 恢復預設</button>
+        </div>
+      </div>
+
+      <div id="day-tabs" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1.5 pt-0.5"></div>
+
+      <div id="day-content-container" class="ehon-card bg-[#FFFFFF] p-4 sm:p-6 space-y-5"></div>
+    </section>
+
+    <!-- 航班卡片 ＆ 住宿資訊區 -->
+    <section id="section-flight-hotel" class="scroll-mt-20 space-y-6">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#A8D3E6] border-[2.5px] border-[#3E3A39] text-lg shadow-[2px_2px_0px_#3E3A39]">✈️</span>
+        <h2 class="text-xl sm:text-2xl font-bold">航班登機證 ＆ 住宿總覽</h2>
+      </div>
+
+      <div class="ehon-card bg-[#FFFFFF] overflow-hidden">
+        <div class="bg-[#A8D3E6] px-4 py-2.5 border-b-[3px] border-[#3E3A39] flex items-center justify-between">
+          <div class="flex items-center gap-2 font-bold text-sm sm:text-base">
+            <span>🎫</span>
+            <span>HIROSHIMA AIRPORT 親子自駕登機證</span>
+          </div>
+          <button onclick="openFlightModal()" class="ehon-btn bg-[#FFFFFF] px-3 py-1 text-xs font-bold">✏️ 編輯航班</button>
+        </div>
+        <div id="flight-card-body" class="p-4 sm:p-5 grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="ehon-card bg-[#FFFFFF] p-4 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="ehon-pill bg-[#F6D27A] px-3 py-0.5 text-xs font-bold">Day 1–2｜倉敷 2 晚</span>
+              <span class="text-xs font-bold text-[#3E3A39]/75">11/20–11/22</span>
+            </div>
+            <h3 class="text-lg font-bold mb-1">🏨 倉敷皇家藝術酒店</h3>
+            <p class="text-xs text-[#3E3A39]/80 mb-3">Kurashiki Royal Art Hotel｜緊鄰倉敷美觀地區。</p>
+          </div>
+          <div class="space-y-2.5 pt-2 border-t-2 border-dashed border-[#3E3A39]">
+            <div class="flex items-center justify-between text-sm font-bold">
+              <span>住宿費用</span>
+              <span class="bg-[#FFFCF6] border-2 border-[#3E3A39] rounded-xl px-2.5 py-0.5">$22,269（109,800 JPY）</span>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=倉敷皇家藝術酒店" target="_blank" rel="noopener noreferrer"
+               class="ehon-btn bg-[#F6D27A] w-full py-1.5 text-xs font-bold flex items-center justify-center gap-1.5">
+              <span>📍</span><span>Google Maps 導航</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="ehon-card bg-[#FFFFFF] p-4 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="ehon-pill bg-[#F2A497] px-3 py-0.5 text-xs font-bold">Day 3–5｜廣島 3 晚</span>
+              <span class="text-xs font-bold text-[#3E3A39]/75">11/22–11/25</span>
+            </div>
+            <h3 class="text-lg font-bold mb-1">🏨 FAV HOTEL Hiroshima Stadium</h3>
+            <p class="text-xs text-[#3E3A39]/80 mb-3">寬敞親子設計旅宿，適合家庭入住。</p>
+          </div>
+          <div class="space-y-2.5 pt-2 border-t-2 border-dashed border-[#3E3A39]">
+            <div class="flex items-center justify-between text-sm font-bold">
+              <span>住宿費用</span>
+              <span class="bg-[#FFFCF6] border-2 border-[#3E3A39] rounded-xl px-2.5 py-0.5">$21,635（97,036 JPY）</span>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=FAV+HOTEL+Hiroshima+Stadium" target="_blank" rel="noopener noreferrer"
+               class="ehon-btn bg-[#F2A497] w-full py-1.5 text-xs font-bold flex items-center justify-center gap-1.5">
+              <span>📍</span><span>Google Maps 導航</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="ehon-card bg-[#FFFFFF] p-4 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="ehon-pill bg-[#A8D3E6] px-3 py-0.5 text-xs font-bold">Day 6–7｜尾道 2 晚</span>
+              <span class="text-xs font-bold text-[#3E3A39]/75">11/25–11/27</span>
+            </div>
+            <h3 class="text-lg font-bold mb-1">🏨 Mangtack Resort Onomichi</h3>
+            <p class="text-xs text-[#3E3A39]/80 mb-3">尾道度假住宿，30分鐘車程直達機場。</p>
+          </div>
+          <div class="space-y-2.5 pt-2 border-t-2 border-dashed border-[#3E3A39]">
+            <div class="flex items-center justify-between text-sm font-bold">
+              <span>住宿費用</span>
+              <span class="bg-[#FFFCF6] border-2 border-[#3E3A39] rounded-xl px-2.5 py-0.5">$13,315（65,651 JPY）</span>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Mangtack+Resort+Onomichi" target="_blank" rel="noopener noreferrer"
+               class="ehon-btn bg-[#A8D3E6] w-full py-1.5 text-xs font-bold flex items-center justify-center gap-1.5">
+              <span>📍</span><span>Google Maps 導航</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ehon-card-sm bg-[#FFFCF6] px-4 py-3 flex flex-wrap items-center justify-between gap-2 text-sm font-bold">
+        <span>💰 7 晚住宿總計參考</span>
+        <span class="bg-[#B9DAA5] border-2 border-[#3E3A39] rounded-full px-3.5 py-1">約 NT$ 57,219（272,487 JPY）</span>
+      </div>
+    </section>
+
+    <!-- 清單區 -->
+    <section id="section-checklists" class="scroll-mt-20 space-y-5">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#B9DAA5] border-[2.5px] border-[#3E3A39] text-lg shadow-[2px_2px_0px_#3E3A39]">🎒</span>
+        <h2 class="text-xl sm:text-2xl font-bold">行前準備・行李・當地採買清單</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="ehon-card bg-[#FFFFFF] p-4 flex flex-col justify-between" data-list-key="preTrip">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-base sm:text-lg font-bold flex items-center gap-1.5"><span>📋</span><span>出發前待辦</span></h3>
+              <span id="progress-preTrip" class="text-xs font-bold bg-[#F6D27A] border-2 border-[#3E3A39] rounded-full px-2.5 py-0.5">0/0</span>
+            </div>
+            <div class="w-full h-3 bg-[#FFFCF6] border-2 border-[#3E3A39] rounded-full overflow-hidden mb-3">
+              <div id="bar-preTrip" class="h-full bg-[#F6D27A] transition-all duration-200" style="width: 0%"></div>
+            </div>
+            <ul id="list-preTrip" class="space-y-2 max-h-72 overflow-y-auto pr-1"></ul>
+          </div>
+          <form onsubmit="addTodoItem(event, 'preTrip')" class="mt-3 pt-2.5 border-t-2 border-dashed border-[#3E3A39] flex gap-1.5">
+            <input type="text" id="input-preTrip" placeholder="新增待辦項目..." class="ehon-input text-xs flex-1 min-w-0" />
+            <button type="submit" class="ehon-btn bg-[#F6D27A] px-3 py-1.5 text-xs font-bold shrink-0">＋</button>
+          </form>
+        </div>
+
+        <div class="ehon-card bg-[#FFFFFF] p-4 flex flex-col justify-between" data-list-key="packing">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-base sm:text-lg font-bold flex items-center gap-1.5"><span>🧳</span><span>親子行李</span></h3>
+              <span id="progress-packing" class="text-xs font-bold bg-[#A8D3E6] border-2 border-[#3E3A39] rounded-full px-2.5 py-0.5">0/0</span>
+            </div>
+            <div class="w-full h-3 bg-[#FFFCF6] border-2 border-[#3E3A39] rounded-full overflow-hidden mb-3">
+              <div id="bar-packing" class="h-full bg-[#A8D3E6] transition-all duration-200" style="width: 0%"></div>
+            </div>
+            <ul id="list-packing" class="space-y-2 max-h-72 overflow-y-auto pr-1"></ul>
+          </div>
+          <form onsubmit="addTodoItem(event, 'packing')" class="mt-3 pt-2.5 border-t-2 border-dashed border-[#3E3A39] flex gap-1.5">
+            <input type="text" id="input-packing" placeholder="新增行李項目..." class="ehon-input text-xs flex-1 min-w-0" />
+            <button type="submit" class="ehon-btn bg-[#A8D3E6] px-3 py-1.5 text-xs font-bold shrink-0">＋</button>
+          </form>
+        </div>
+
+        <div class="ehon-card bg-[#FFFFFF] p-4 flex flex-col justify-between" data-list-key="shopping">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-base sm:text-lg font-bold flex items-center gap-1.5"><span>🛍️</span><span>當地採買</span></h3>
+              <span id="progress-shopping" class="text-xs font-bold bg-[#F2A497] border-2 border-[#3E3A39] rounded-full px-2.5 py-0.5">0/0</span>
+            </div>
+            <div class="w-full h-3 bg-[#FFFCF6] border-2 border-[#3E3A39] rounded-full overflow-hidden mb-3">
+              <div id="bar-shopping" class="h-full bg-[#F2A497] transition-all duration-200" style="width: 0%"></div>
+            </div>
+            <ul id="list-shopping" class="space-y-2 max-h-72 overflow-y-auto pr-1"></ul>
+          </div>
+          <form onsubmit="addTodoItem(event, 'shopping')" class="mt-3 pt-2.5 border-t-2 border-dashed border-[#3E3A39] flex gap-1.5">
+            <input type="text" id="input-shopping" placeholder="新增採買/任務..." class="ehon-input text-xs flex-1 min-w-0" />
+            <button type="submit" class="ehon-btn bg-[#F2A497] px-3 py-1.5 text-xs font-bold shrink-0">＋</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="text-center pt-4 pb-8 text-xs sm:text-sm text-[#3E3A39]/80 space-y-2">
+      <div class="inline-flex items-center gap-2 bg-[#FFFFFF] border-[2.5px] border-[#3E3A39] rounded-full px-4 py-1.5 shadow-[2px_2px_0px_#3E3A39]">
+        <span>🐰</span>
+        <span>祝 2026 廣島・岡山・尾道親子自駕之旅平安順心！</span>
+        <span>🍁</span>
+      </div>
+      <p id="footer-sync-info">本機自動儲存與 Apple 共享同步啟用中</p>
+    </footer>
+  </main>
+
+  <!-- 彈窗 1：新增 / 編輯行程 Modal -->
+  <div id="item-modal" class="fixed inset-0 z-50 bg-[#3E3A39]/50 hidden items-center justify-center p-4">
+    <div class="ehon-card bg-[#FFFCF6] w-full max-w-md p-5 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b-2 border-[#3E3A39] pb-2.5">
+        <h3 id="item-modal-title" class="text-lg font-bold">✏️ 編輯行程項目</h3>
+        <button onclick="closeItemModal()" class="ehon-btn bg-[#FFFFFF] w-8 h-8 flex items-center justify-center font-bold text-sm">✕</button>
+      </div>
+
+      <form id="item-form" onsubmit="saveItineraryItem(event)" class="space-y-3 text-sm">
+        <input type="hidden" id="edit-item-index" value="-1" />
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label class="block font-bold mb-1">時間 / 時段</label>
+            <input type="text" id="field-time" placeholder="例如 10:25" class="ehon-input w-full" required />
+          </div>
+          <div>
+            <label class="block font-bold mb-1">交通方式標籤</label>
+            <select id="field-transport" class="ehon-input w-full">
+              <option value="car">🚗 自駕</option>
+              <option value="walk">🚶 散步 / 推車友善</option>
+              <option value="ferry">⛴️ 渡輪 / 觀光舟</option>
+              <option value="ropeway">🚠 纜車</option>
+              <option value="train">🚃 電車 / 海上列車</option>
+              <option value="flight">✈️ 航班 / 機場</option>
+              <option value="hotel">🏨 飯店 Check-in/out</option>
+              <option value="shop">🛍️ 購物 / 美食</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold mb-1">景點 / 行程標題</label>
+          <input type="text" id="field-title" placeholder="輸入景點名稱或活動" class="ehon-input w-full" required />
+        </div>
+
+        <div>
+          <label class="block font-bold mb-1">詳細說明 / 親子貼心筆記</label>
+          <textarea id="field-desc" rows="3" placeholder="樓層專櫃、停車資訊或動線..." class="ehon-input w-full"></textarea>
+        </div>
+
+        <div class="flex items-center justify-between bg-[#FFFFFF] border-2 border-[#3E3A39] rounded-2xl px-3.5 py-2.5">
+          <label for="field-must" class="font-bold flex items-center gap-1.5 cursor-pointer">
+            <span>⭐</span>
+            <span>標記為「必去」重點行程</span>
+          </label>
+          <input type="checkbox" id="field-must" class="w-5 h-5 accent-[#F2A497] cursor-pointer" />
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" onclick="closeItemModal()" class="ehon-btn bg-[#FFFFFF] px-4 py-2 font-bold">取消</button>
+          <button type="submit" class="ehon-btn bg-[#B9DAA5] px-5 py-2 font-bold">💾 儲存行程</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 彈窗 2：編輯航班 Modal -->
+  <div id="flight-modal" class="fixed inset-0 z-50 bg-[#3E3A39]/50 hidden items-center justify-center p-4">
+    <div class="ehon-card bg-[#FFFCF6] w-full max-w-md p-5 space-y-4">
+      <div class="flex items-center justify-between border-b-2 border-[#3E3A39] pb-2.5">
+        <h3 class="text-lg font-bold">✈️ 編輯航班資訊</h3>
+        <button onclick="closeFlightModal()" class="ehon-btn bg-[#FFFFFF] w-8 h-8 flex items-center justify-center font-bold text-sm">✕</button>
+      </div>
+      <form onsubmit="saveFlightInfo(event)" class="space-y-3 text-sm">
+        <div>
+          <label class="block font-bold mb-1">去程航班代碼</label>
+          <input type="text" id="fl-out-code" class="ehon-input w-full" required />
+        </div>
+        <div>
+          <label class="block font-bold mb-1">去程時間說明</label>
+          <input type="text" id="fl-out-time" class="ehon-input w-full" required />
+        </div>
+        <div>
+          <label class="block font-bold mb-1">回程航班代碼</label>
+          <input type="text" id="fl-in-code" class="ehon-input w-full" required />
+        </div>
+        <div>
+          <label class="block font-bold mb-1">回程時間說明</label>
+          <input type="text" id="fl-in-time" class="ehon-input w-full" required />
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" onclick="closeFlightModal()" class="ehon-btn bg-[#FFFFFF] px-4 py-2 font-bold">取消</button>
+          <button type="submit" class="ehon-btn bg-[#A8D3E6] px-5 py-2 font-bold">💾 儲存航班</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 彈窗 3：Apple 共享即時同步 Modal -->
+  <div id="sync-modal" class="fixed inset-0 z-50 bg-[#3E3A39]/50 hidden items-center justify-center p-4">
+    <div class="ehon-card bg-[#FFFCF6] w-full max-w-lg p-5 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b-2 border-[#3E3A39] pb-2.5">
+        <h3 class="text-lg font-bold flex items-center gap-1.5">
+          <span></span><span>Apple 原生共享即時同步</span>
+        </h3>
+        <button onclick="closeSyncModal()" class="ehon-btn bg-[#FFFFFF] w-8 h-8 flex items-center justify-center font-bold text-sm">✕</button>
+      </div>
+
+      <p class="text-xs sm:text-sm text-[#3E3A39]/85 leading-relaxed">
+        透過 <strong>AirDrop</strong>、<strong>訊息</strong> 分享連結，或用 iPhone 相機掃描 QR Code，雙方修改行程或勾選清單皆會即時同步！
+      </p>
+
+      <div class="ehon-card-sm bg-[#FFFFFF] p-4 space-y-3">
+        <button onclick="triggerAppleShare()" class="ehon-btn bg-[#F2A497] w-full py-3 px-4 text-sm font-bold flex items-center justify-center gap-2">
+          <span class="text-lg"></span>
+          <span>透過 AirDrop / 訊息共享同步</span>
+        </button>
+
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center pt-1">
+          <div class="sm:col-span-5 flex flex-col items-center justify-center bg-[#FFFCF6] border-2 border-[#3E3A39] rounded-2xl p-2.5">
+            <img id="sync-qr-img" src="" alt="QR Code" class="w-28 h-28 rounded-lg border border-[#3E3A39]/20 bg-white p-1"
+                 onerror="this.style.display='none'" />
+            <span class="text-[11px] font-bold mt-1.5 text-center">📷 iPhone 相機掃碼</span>
+          </div>
+          <div class="sm:col-span-7 space-y-2">
+            <div class="font-bold text-xs flex items-center gap-1">
+              <span>🔗</span><span>專屬雲端同步網址</span>
+            </div>
+            <input type="text" id="sync-invite-url" readonly class="ehon-input w-full text-xs font-mono bg-[#FFFCF6]" />
+            <button onclick="copyInviteUrl()" class="ehon-btn bg-[#F6D27A] w-full py-2 text-xs font-bold flex items-center justify-center gap-1.5">
+              <span>📋</span><span>複製專屬共享連結</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ehon-card-sm bg-[#FFFFFF] p-3.5 space-y-2">
+        <div class="font-bold text-xs sm:text-sm flex items-center justify-between">
+          <span class="flex items-center gap-1.5"><span>🏠</span><span>目前共享房間代碼</span></span>
+        </div>
+        <div class="flex gap-2">
+          <input type="text" id="input-room-code" placeholder="例如：hiroshima-2026" class="ehon-input w-full text-xs font-mono" />
+          <button onclick="switchRoom()" class="ehon-btn bg-[#A8D3E6] px-4 py-2 text-xs font-bold shrink-0">切換房間</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 彈窗 4：PWA Modal -->
+  <div id="pwa-modal" class="fixed inset-0 z-50 bg-[#3E3A39]/50 hidden items-center justify-center p-4">
+    <div class="ehon-card bg-[#FFFCF6] w-full max-w-md p-5 space-y-4">
+      <div class="flex items-center justify-between border-b-2 border-[#3E3A39] pb-2.5">
+        <h3 class="text-lg font-bold">📲 加到手機主畫面</h3>
+        <button onclick="closePwaModal()" class="ehon-btn bg-[#FFFFFF] w-8 h-8 flex items-center justify-center font-bold text-sm">✕</button>
+      </div>
+
+      <div class="space-y-3 text-sm">
+        <div class="ehon-card-sm bg-[#FFFFFF] p-3.5 space-y-1.5">
+          <div class="font-bold text-[#3E3A39] flex items-center gap-1.5"><span>🍎</span><span>iPhone / iPad（Safari）</span></div>
+          <ol class="list-decimal list-inside text-xs sm:text-sm space-y-1 text-[#3E3A39]/85">
+            <li>點擊瀏覽器下方工具列的 <strong>「分享」按鈕（方框向上箭頭）</strong></li>
+            <li>往下滑動找到並點選 <strong>「加入主畫面」</strong></li>
+            <li>點擊右上角 <strong>「新增」</strong> 即可！</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript 核心邏輯 -->
+  <script>
+    const DEFAULT_DATA = {
+      flights: {
+        outboundCode: '去程｜桃園 TPE ➔ 廣島 HIJ',
+        outboundTime: '11/20 (五) 10:25 抵達廣島機場 → 辦理租車取車出發',
+        inboundCode: '回程｜廣島 HIJ ➔ 桃園 TPE',
+        inboundTime: '11/27 (五) 08:00 尾道退房 → 自駕約 30 分鐘直達廣島機場'
+      },
+      days: [
+        {
+          dayNum: 1,
+          date: '11/20 (五)',
+          city: '倉敷',
+          stayBadge: '倉敷 第 1 晚',
+          themeColor: '#F6D27A',
+          summary: '抵達廣島機場取車自駕前往倉敷，順路西松屋補齊寶寶用品，入住倉敷皇家藝術酒店！',
+          items: [
+            { time: '10:25', title: '抵達廣島機場 ＆ 租車取車', desc: '辦理入境領取行李，前往租車櫃檯取車、安裝兒童安全座椅與確認 ETC 卡。', transport: 'flight', must: true },
+            { time: '11:30', title: '自駕前往倉敷（經山陽自動車道）', desc: '沿山陽自動車道往岡山方向行駛，車程約 1 小時 15 分鐘。', transport: 'car', must: false },
+            { time: '13:30', title: '西松屋 倉敷平田店 寶寶補給站', desc: '下倉敷 IC 順路採買尿布、寶寶副食品、米餅零食。', transport: 'shop', must: true },
+            { time: '15:00', title: '飯店 Check-in：倉敷皇家藝術酒店', desc: '辦理入住手續並稍作休息，飯店就在美觀地區旁。', transport: 'hotel', must: false },
+            { time: '16:00', title: '倉敷美觀地區 黃昏運河散步', desc: '白壁宅邸與垂柳運河街景，石板路平緩推車友善。', transport: 'walk', must: true }
+          ],
+          backups: [
+            { title: '西松屋 コムプラザ倉敷店', desc: '若白天來不及去平田店，晚上改至這家分店補貨。', transport: 'shop' },
+            { title: '倉敷三井 Outlet / Ario 倉敷', desc: '晚餐與購物備案。', transport: 'shop' }
+          ]
+        },
+        {
+          dayNum: 2,
+          date: '11/21 (六)',
+          city: '倉敷・岡山',
+          stayBadge: '倉敷 第 2 晚',
+          themeColor: '#F6D27A',
+          summary: '上午前往岡山後樂園與岡山城秋季賞楓，午後回到倉敷美觀地區慢遊吃水果聖代、搭觀光舟。',
+          items: [
+            { time: '09:30', title: '岡山後樂園 ＆ 岡山城 秋季賞楓', desc: '日本三大名園之一！秋楓染紅庭園與烏城天守閣。', transport: 'car', must: true },
+            { time: '13:30', title: '倉敷美觀地區慢遊・水果聖代下午茶', desc: '巡禮本町老街雜貨小店，品嚐岡山招牌白桃／麝香葡萄水果聖代。', transport: 'walk', must: true },
+            { time: '15:30', title: '倉敷川觀光舟體驗', desc: '戴上斗笠乘船沿運河緩緩前行。', transport: 'ferry', must: true }
+          ],
+          backups: [
+            { title: '倉敷科學館', desc: '雨天親子室內好去處。', transport: 'car' },
+            { title: '三宅商店（老宅下午茶）', desc: '町家改建人氣咖啡館。', transport: 'walk' }
+          ]
+        },
+        {
+          dayNum: 3,
+          date: '11/22 (日)',
+          city: '廣島',
+          stayBadge: '廣島 第 1 晚',
+          themeColor: '#F2A497',
+          summary: '自駕前往廣島！逛廣島城護城河賞楓、和平紀念公園綠地散步，晚上吃本通廣島燒與買吉備團子。',
+          items: [
+            { time: '09:30', title: '倉敷出發 ➔ 自駕前往廣島', desc: '車程約 1.5 小時抵達廣島市區。', transport: 'car', must: false },
+            { time: '11:30', title: '廣島城 ＆ 鯉城公園草皮放風', desc: '護城河畔賞楓散步，鯉城公園草皮寬敞推車友善。', transport: 'walk', must: true },
+            { time: '14:00', title: '和平紀念公園 ＆ 原爆圓頂館', desc: '綠意盎然的河岸公園散步，推車動線平坦好推。', transport: 'walk', must: true },
+            { time: '15:30', title: '飯店 Check-in：FAV HOTEL Hiroshima Stadium', desc: '入住寬敞舒適的家庭房型。', transport: 'hotel', must: false },
+            { time: '17:30', title: '本通商店街 ＆ 廣島紙鶴塔', desc: '大啖熱騰騰道地廣島燒美食。', transport: 'shop', must: true }
+          ],
+          backups: [
+            { title: '吳市大和海事博物館 / 鐵鯨館', desc: '近距離看真實退役大潛水艇與戰艦模型。', transport: 'car' }
+          ]
+        },
+        {
+          dayNum: 4,
+          date: '11/23 (一)',
+          city: '廣島採買＆夜楓',
+          stayBadge: '廣島 第 2 晚',
+          themeColor: '#F2A497',
+          summary: 'ALPARK 旗艦店與山田電機家電大採買、LECT 蔦屋書店下午茶，晚上賞縮景園特別夜間點燈！',
+          items: [
+            { time: '10:00', title: 'ALPARK 購物中心 旗艦店大採買', desc: '東棟 2F：mont-bell、UNIQLO｜西棟 1-2F：無印良品旗艦店｜西棟 2F：Alpen Outdoors。', transport: 'shop', must: true },
+            { time: '12:30', title: 'ヤマダデンキ 山田電機（ALPARK 西棟 3F）', desc: '鎖定象印微波烤箱，現場比價與辦理免稅。', transport: 'shop', must: true },
+            { time: '15:00', title: 'LECT 購物中心（3COINS +plus / 蔦屋書店）', desc: '逛好逛滿生活雜貨，在廣島 T-SITE 享受下午茶。', transport: 'car', must: false },
+            { time: '18:30', title: '縮景園 特別夜間賞楓點燈', desc: '秋季限定夜楓點燈！', transport: 'walk', must: true }
+          ],
+          backups: []
+        },
+        {
+          dayNum: 5,
+          date: '11/24 (二)',
+          city: '宮島・大竹',
+          stayBadge: '廣島 第 3 晚',
+          themeColor: '#F2A497',
+          summary: '平日黃金日暢遊宮島嚴島神社與水上大鳥居，下午自駕 20 分鐘至下瀨美術館看水上浮動展館！',
+          items: [
+            { time: '09:00', title: '宮島口搭渡輪 ➔ 嚴島神社 ＆ 水上大鳥居', desc: '搭渡輪登島看小鹿與海上大鳥居。', transport: 'ferry', must: true },
+            { time: '11:30', title: '宮島表參道商店街 美食巡禮', desc: '現烤楓葉饅頭、廣島烤牡蠣。', transport: 'walk', must: true },
+            { time: '13:30', title: '宮島纜車 眺望瀨戶內海群島', desc: '搭乘纜車輕鬆登高俯瞰彌山紅葉。', transport: 'ropeway', must: false },
+            { time: '15:30', title: '下瀨美術館', desc: '彩色水上浮動展館、望洋露台海景下午茶。', transport: 'car', must: true }
+          ],
+          backups: []
+        },
+        {
+          dayNum: 6,
+          date: '11/25 (三)',
+          city: '尾道',
+          stayBadge: '尾道 第 1 晚',
+          themeColor: '#A8D3E6',
+          summary: '上午自駕前往山海小鎮尾道，搭千光寺纜車俯瞰瀨戶內海，午後漫步 ONOMICHI U2 海邊倉庫。',
+          items: [
+            { time: '09:30', title: '廣島出發 ➔ 自駕前往尾道', desc: '車程約 1 小時抵達尾道。', transport: 'car', must: false },
+            { time: '11:00', title: '尾道千光寺纜車 ➔ 千光寺公園', desc: '搭纜車直達山頂展望台。', transport: 'ropeway', must: true },
+            { time: '14:30', title: '尾道老街 ＆ ONOMICHI U2 海邊文青倉庫', desc: '海邊倉庫改建的質感空間。', transport: 'walk', must: true },
+            { time: '16:30', title: '飯店 Check-in：Mangtack Resort Onomichi', desc: '入住尾道度假飯店。', transport: 'hotel', must: false }
+          ],
+          backups: [
+            { title: '生口島耕三寺 / 未來心之丘', desc: '純白大理石藝術庭園。', transport: 'car' }
+          ]
+        },
+        {
+          dayNum: 7,
+          date: '11/26 (四)',
+          city: '大久野島（兔子島）',
+          stayBadge: '尾道 第 2 晚',
+          themeColor: '#A8D3E6',
+          summary: '前往忠海港搭船登陸萌翻天的大久野島（兔子島）餵小兔子，午後享受瀨戶內海沿岸自駕兜風！',
+          items: [
+            { time: '09:30', title: '忠海港搭船 ➔ 大久野島（兔子島）', desc: '登島與數百隻可愛野放小兔子近距離互動。', transport: 'ferry', must: true },
+            { time: '13:30', title: '瀨戶內海沿岸 ＆ 島並海道自駕兜風', desc: '沿著蔚藍海岸線兜風，品嚐柑橘冰淇淋。', transport: 'car', must: true }
+          ],
+          backups: []
+        },
+        {
+          dayNum: 8,
+          date: '11/27 (五)',
+          city: '尾道 ➔ 廣島機場',
+          stayBadge: '平安賦歸',
+          themeColor: '#B9DAA5',
+          summary: '08:00 退房出發，車程僅約 30 分鐘直達廣島機場，輕鬆還車搭機返家！',
+          items: [
+            { time: '08:00', title: 'Mangtack Resort Onomichi 退房出發', desc: '檢查隨身行李與護照。', transport: 'hotel', must: true },
+            { time: '08:30', title: '抵達廣島機場 還車 ＆ 辦理登機', desc: '加滿油還車，機場內最後採買！', transport: 'flight', must: true }
+          ],
+          backups: []
+        }
+      ],
+      checklists: {
+        preTrip: [
+          { text: '確認全家護照效期（6個月以上）', checked: true },
+          { text: '申請台灣駕照「日文譯本」', checked: false },
+          { text: '填寫 Visit Japan Web', checked: false },
+          { text: '確認租車預約單（含安全座椅＋ETC卡）', checked: true },
+          { text: '投保旅平險＋不便險', checked: false },
+          { text: '開通日本漫遊 / eSIM 網路', checked: false }
+        ],
+        packing: [
+          { text: '台灣駕照正本 ＋ 日文譯本 ＋ 護照', checked: false },
+          { text: '日幣現金 ＋ 海外高回饋信用卡', checked: false },
+          { text: '輕便折疊嬰兒推車 ＋ 親子背巾', checked: false },
+          { text: '寶寶常備藥品、體溫計、保溫瓶', checked: false },
+          { text: '11月下旬秋冬季保暖洋蔥式衣物', checked: false },
+          { text: '行動電源、充電線、車用手機支架', checked: false }
+        ],
+        shopping: [
+          { text: '西松屋：尿布、寶寶副食品、米餅', checked: false },
+          { text: '廣榮堂：吉備團子伴手禮', checked: false },
+          { text: 'ALPARK：mont-bell / UNIQLO', checked: false },
+          { text: 'ALPARK 無印良品世界最大旗艦店', checked: false },
+          { text: 'Alpen Outdoors（DOD 帳篷 / KEEN）', checked: false },
+          { text: '山田電機：象印微波烤箱', checked: false },
+          { text: '忠海港賣店：買兔兔飼料', checked: false }
+        ]
+      }
+    };
+
+    const TRANSPORT_META = {
+      car:     { label: '🚗 自駕',         bg: '#F6D27A' },
+      walk:    { label: '🚶 散步推車友善', bg: '#B9DAA5' },
+      ferry:   { label: '⛴️ 渡輪／觀光舟', bg: '#A8D3E6' },
+      ropeway: { label: '🚠 纜車',         bg: '#F2A497' },
+      train:   { label: '🚃 電車／列車',   bg: '#A8D3E6' },
+      flight:  { label: '✈️ 航班／機場',   bg: '#F2A497' },
+      hotel:   { label: '🏨 飯店住宿',     bg: '#F6D27A' },
+      shop:    { label: '🛍️ 購物／美食',   bg: '#F2A497' }
+    };
+
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+    const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+    const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : undefined;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentRoomId = urlParams.get('room') || 'default-room';
+    const LOCAL_STORAGE_KEY = `ehon_trip_data_${currentRoomId}`;
+
+    let db = null;
+    let auth = null;
+    let unsubscribeSnapshot = null;
+    let isRemoteUpdate = false;
+
+    let appData = loadLocalData();
+    let currentDayIndex = 0;
+    let isEditMode = false;
+
+    function loadLocalData() {
+      try {
+        const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (saved) {
+          return JSON.parse(saved);
+        }
+      } catch (e) {
+        console.warn('LocalStorage read error:', e);
+      }
+      return JSON.parse(JSON.stringify(DEFAULT_DATA));
+    }
+
+    function saveLocalData() {
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(appData));
+      } catch (e) {
+        console.warn('LocalStorage write error:', e);
+      }
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const box = document.getElementById('toast-box');
+      const text = document.getElementById('toast-msg');
+      text.textContent = msg;
+      box.classList.remove('opacity-0', 'translate-y-4');
+      box.classList.add('opacity-100', 'translate-y-0');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        box.classList.remove('opacity-100', 'translate-y-0');
+        box.classList.add('opacity-0', 'translate-y-4');
+      }, 2400);
+    }
+
+    window.addEventListener('firebase-loaded', async () => {
+      if (!firebaseConfig) {
+        initApp();
+        return;
+      }
+      try {
+        const { initializeApp, getAuth, signInAnonymously, signInWithCustomToken, getFirestore, doc, getDoc, setDoc, onSnapshot } = window.firebaseModules;
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+        auth = getAuth(app);
+
+        if (initialAuthToken) {
+          await signInWithCustomToken(auth, initialAuthToken);
+        } else {
+          await signInAnonymously(auth);
+        }
+        setupRealtimeSync();
+      } catch (err) {
+        console.warn('Firebase init fallback to local:', err);
+        initApp();
+      }
+    });
+
+    setTimeout(() => {
+      if (!db && !window.firebaseModules) {
+        initApp();
+      }
+    }, 1200);
+
+    function setupRealtimeSync() {
+      const { doc, getDoc, setDoc, onSnapshot } = window.firebaseModules;
+      const roomDocRef = doc(db, 'artifacts', appId, 'public', 'data', `trip_room_${currentRoomId}`);
+      updateSyncUiDisplay();
+
+      getDoc(roomDocRef).then(async (snap) => {
+        if (!snap.exists()) {
+          await setDoc(roomDocRef, appData);
+        } else {
+          const remoteData = snap.data();
+          if (remoteData && remoteData.days) {
+            appData = remoteData;
+            saveLocalData();
+          }
+        }
+        initApp();
+      }).catch(err => {
+        console.warn('Firestore fetch error, using local:', err);
+        initApp();
+      });
+
+      if (unsubscribeSnapshot) unsubscribeSnapshot();
+      unsubscribeSnapshot = onSnapshot(roomDocRef, (docSnap) => {
+        if (docSnap.exists() && !isRemoteUpdate) {
+          const remoteData = docSnap.data();
+          if (remoteData && remoteData.days) {
+            appData = remoteData;
+            saveLocalData();
+            renderAll();
+            const dot = document.getElementById('sync-status-dot');
+            if (dot) {
+              dot.classList.remove('bg-yellow-500', 'bg-red-500');
+              dot.classList.add('bg-green-600');
+            }
+          }
+        }
+        isRemoteUpdate = false;
+      }, (error) => {
+        console.warn('Firestore snapshot warning:', error);
+      });
+    }
+
+    async function persistChanges(noticeMsg = '已自動儲存！✨') {
+      saveLocalData();
+      renderAll();
+      if (noticeMsg) showToast(noticeMsg);
+
+      if (!db || !auth || !auth.currentUser) return;
+      try {
+        isRemoteUpdate = true;
+        const { doc, setDoc } = window.firebaseModules;
+        const roomDocRef = doc(db, 'artifacts', appId, 'public', 'data', `trip_room_${currentRoomId}`);
+        await setDoc(roomDocRef, appData);
+      } catch (err) {
+        console.warn('Cloud sync write error (saved locally):', err);
+        isRemoteUpdate = false;
+      }
+    }
+
+    function initApp() {
+      renderAll();
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+      updateSyncUiDisplay();
+    }
+
+    function updateSyncUiDisplay() {
+      const badgeEl = document.getElementById('room-code-badge');
+      if (badgeEl) badgeEl.textContent = `Apple 共享房間：${currentRoomId}`;
+
+      const inviteUrl = `${window.location.origin}${window.location.pathname}?room=${encodeURIComponent(currentRoomId)}`;
+      const urlInput = document.getElementById('sync-invite-url');
+      if (urlInput) urlInput.value = inviteUrl;
+
+      const roomInput = document.getElementById('input-room-code');
+      if (roomInput) roomInput.value = currentRoomId;
+
+      const qrImg = document.getElementById('sync-qr-img');
+      if (qrImg) {
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&color=3E3A39&bgcolor=FFFFFF&data=${encodeURIComponent(inviteUrl)}`;
+      }
+    }
+
+    function renderDayTabs() {
+      const container = document.getElementById('day-tabs');
+      if (!container) return;
+      container.innerHTML = appData.days.map((d, idx) => {
+        const active = idx === currentDayIndex;
+        const bgStyle = active ? `background-color: ${d.themeColor};` : 'background-color: #FFFFFF;';
+        const ringClass = active ? 'translate-y-[-2px] font-bold' : 'opacity-85 hover:opacity-100';
+        return `
+          <button onclick="selectDay(${idx})"
+            style="${bgStyle}"
+            class="ehon-btn px-3.5 py-2 shrink-0 text-left flex flex-col min-w-[104px] ${ringClass}">
+            <div class="flex items-center justify-between gap-1 w-full">
+              <span class="text-xs font-bold">Day ${d.dayNum}</span>
+              <span class="text-[11px] bg-[#FFFFFF]/80 border border-[#3E3A39] rounded-full px-1.5">${d.date.split(' ')[0]}</span>
+            </div>
+            <span class="text-xs sm:text-sm font-bold mt-0.5 truncate w-full">${d.city}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectDay(idx) {
+      currentDayIndex = idx;
+      renderDayTabs();
+      renderDayContent();
+    }
+
+    function toggleEditMode() {
+      isEditMode = !isEditMode;
+      const btn = document.getElementById('toggle-edit-btn');
+      const text = document.getElementById('toggle-edit-text');
+      const banner = document.getElementById('edit-mode-banner');
+
+      if (isEditMode) {
+        btn.style.backgroundColor = '#F6D27A';
+        text.textContent = '編輯行程模式：開';
+        banner.classList.remove('hidden');
+        showToast('已開啟編輯模式 ✏️');
+      } else {
+        btn.style.backgroundColor = '#FFFFFF';
+        text.textContent = '編輯行程模式：關';
+        banner.classList.add('hidden');
+        showToast('已關閉編輯模式');
+      }
+      renderDayContent();
+    }
+
+    function renderDayContent() {
+      const d = appData.days[currentDayIndex];
+      const container = document.getElementById('day-content-container');
+      if (!container) return;
+
+      const itemsHtml = d.items.length === 0
+        ? `<div class="text-center py-8 text-sm text-[#3E3A39]/70 bg-[#FFFCF6] rounded-2xl border-2 border-dashed border-[#3E3A39]">這天目前還沒有行程，開啟編輯模式即可新增！</div>`
+        : d.items.map((item, idx) => {
+            const tMeta = TRANSPORT_META[item.transport] || TRANSPORT_META.car;
+            const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title)}`;
+
+            return `
+              <div class="relative pl-7 sm:pl-9 pb-5 last:pb-0">
+                ${idx < d.items.length - 1 ? '<div class="absolute left-[11px] sm:left-[15px] top-6 bottom-0 w-[3px] bg-[#3E3A39]"></div>' : ''}
+                <div class="absolute left-0 sm:left-1 top-1.5 w-6 h-6 rounded-full border-[3px] border-[#3E3A39] flex items-center justify-center text-[10px] font-bold"
+                     style="background-color: ${d.themeColor};">
+                  ${idx + 1}
+                </div>
+
+                <div class="ehon-card-sm bg-[#FFFCF6] p-3.5 sm:p-4 space-y-2">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex flex-wrap items-center gap-1.5">
+                      <span class="bg-[#FFFFFF] border-2 border-[#3E3A39] rounded-full px-2.5 py-0.5 text-xs font-bold">🕒 ${escapeHtml(item.time)}</span>
+                      <span class="border-2 border-[#3E3A39] rounded-full px-2.5 py-0.5 text-xs font-bold" style="background-color: ${tMeta.bg};">${tMeta.label}</span>
+                      ${item.must ? '<span class="bg-[#F2A497] border-2 border-[#3E3A39] rounded-full px-2.5 py-0.5 text-xs font-bold">⭐ 必去</span>' : ''}
+                    </div>
+
+                    <a href="${mapUrl}" target="_blank" rel="noopener noreferrer"
+                       class="text-xs font-bold underline decoration-2 hover:text-[#3E3A39]/70 flex items-center gap-0.5">
+                      <span>📍 地圖</span>
+                    </a>
+                  </div>
+
+                  <h4 class="text-base sm:text-lg font-bold leading-snug">${escapeHtml(item.title)}</h4>
+                  ${item.desc ? `<p class="text-xs sm:text-sm text-[#3E3A39]/85 leading-relaxed">${escapeHtml(item.desc)}</p>` : ''}
+
+                  ${isEditMode ? `
+                    <div class="pt-2.5 mt-2 border-t-2 border-dashed border-[#3E3A39] flex flex-wrap items-center justify-between gap-2">
+                      <div class="flex items-center gap-1.5">
+                        <button onclick="moveItem(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="ehon-btn bg-[#FFFFFF] px-2.5 py-1 text-xs font-bold disabled:opacity-40">⬆️ 上移</button>
+                        <button onclick="moveItem(${idx}, 1)" ${idx === d.items.length - 1 ? 'disabled' : ''} class="ehon-btn bg-[#FFFFFF] px-2.5 py-1 text-xs font-bold disabled:opacity-40">⬇️ 下移</button>
+                      </div>
+                      <div class="flex items-center gap-1.5">
+                        <button onclick="openItemModal(${idx})" class="ehon-btn bg-[#A8D3E6] px-3 py-1 text-xs font-bold">✏️ 修改</button>
+                        <button onclick="deleteItem(${idx})" class="ehon-btn bg-[#F2A497] px-3 py-1 text-xs font-bold">🗑️ 刪除</button>
+                      </div>
+                    </div>
+                  ` : ''}
+                </div>
+              </div>
+            `;
+          }).join('');
+
+      const backupsHtml = (d.backups && d.backups.length > 0) ? `
+        <div class="pt-4 border-t-[3px] border-dashed border-[#3E3A39] space-y-2.5">
+          <div class="flex items-center justify-between">
+            <h4 class="text-sm sm:text-base font-bold flex items-center gap-1.5">
+              <span>🎒</span>
+              <span>${d.city} 備案與口袋名單</span>
+            </h4>
+            <span class="text-xs text-[#3E3A39]/75">可一鍵加入本日行程</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            ${d.backups.map((b, bIdx) => {
+              const bMeta = TRANSPORT_META[b.transport] || TRANSPORT_META.car;
+              return `
+                <div class="bg-[#FFFCF6] border-[2.5px] border-[#3E3A39] rounded-2xl p-3 flex flex-col justify-between gap-2">
+                  <div>
+                    <div class="flex items-center justify-between gap-1 mb-1">
+                      <span class="text-[11px] font-bold border border-[#3E3A39] rounded-full px-2 py-0.2" style="background-color: ${bMeta.bg};">${bMeta.label}</span>
+                      <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(b.title)}" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold underline">📍 地圖</a>
+                    </div>
+                    <div class="font-bold text-sm">${escapeHtml(b.title)}</div>
+                    <p class="text-xs text-[#3E3A39]/80 mt-0.5">${escapeHtml(b.desc)}</p>
+                  </div>
+                  <button onclick="promoteBackupToItinerary(${bIdx})" class="ehon-btn bg-[#FFFFFF] py-1 px-3 text-xs font-bold self-start">
+                    ➕ 加入本日時間軸
+                  </button>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      ` : '';
+
+      container.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b-[3px] border-[#3E3A39]">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="ehon-pill px-3 py-0.5 text-xs sm:text-sm font-bold" style="background-color: ${d.themeColor};">Day ${d.dayNum}｜${d.date}</span>
+              <span class="ehon-pill bg-[#FFFCF6] px-3 py-0.5 text-xs sm:text-sm font-bold">🏨 ${d.stayBadge}</span>
+            </div>
+            <p class="text-xs sm:text-sm text-[#3E3A39]/85 mt-2">${escapeHtml(d.summary)}</p>
+          </div>
+
+          ${isEditMode ? `
+            <button onclick="openItemModal()" class="ehon-btn bg-[#B9DAA5] px-3.5 py-2 text-xs sm:text-sm font-bold shrink-0">
+              ➕ 新增行程
+            </button>
+          ` : ''}
+        </div>
+
+        <div class="pt-1">${itemsHtml}</div>
+        ${backupsHtml}
+      `;
+    }
+
+    function moveItem(idx, direction) {
+      const items = appData.days[currentDayIndex].items;
+      const targetIdx = idx + direction;
+      if (targetIdx < 0 || targetIdx >= items.length) return;
+      const temp = items[idx];
+      items[idx] = items[targetIdx];
+      items[targetIdx] = temp;
+      persistChanges('已即時同步排序變更！');
+    }
+
+    function deleteItem(idx) {
+      appData.days[currentDayIndex].items.splice(idx, 1);
+      persistChanges('已刪除行程！');
+    }
+
+    function promoteBackupToItinerary(bIdx) {
+      const day = appData.days[currentDayIndex];
+      const backup = day.backups[bIdx];
+      if (!backup) return;
+      day.items.push({
+        time: '彈性時段',
+        title: backup.title,
+        desc: backup.desc,
+        transport: backup.transport || 'car',
+        must: false
+      });
+      persistChanges(`已將「${backup.title}」加入行程！`);
+    }
+
+    function openItemModal(idx = -1) {
+      const modal = document.getElementById('item-modal');
+      const titleEl = document.getElementById('item-modal-title');
+      document.getElementById('edit-item-index').value = idx;
+
+      if (idx >= 0) {
+        const item = appData.days[currentDayIndex].items[idx];
+        titleEl.textContent = '✏️ 編輯行程項目';
+        document.getElementById('field-time').value = item.time;
+        document.getElementById('field-transport').value = item.transport || 'car';
+        document.getElementById('field-title').value = item.title;
+        document.getElementById('field-desc').value = item.desc || '';
+        document.getElementById('field-must').checked = !!item.must;
+      } else {
+        titleEl.textContent = `➕ 新增 Day ${appData.days[currentDayIndex].dayNum} 行程`;
+        document.getElementById('field-time').value = '';
+        document.getElementById('field-transport').value = 'car';
+        document.getElementById('field-title').value = '';
+        document.getElementById('field-desc').value = '';
+        document.getElementById('field-must').checked = false;
+      }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeItemModal() {
+      const modal = document.getElementById('item-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function saveItineraryItem(e) {
+      e.preventDefault();
+      const idx = parseInt(document.getElementById('edit-item-index').value, 10);
+      const newItem = {
+        time: document.getElementById('field-time').value.trim() || '彈性',
+        transport: document.getElementById('field-transport').value,
+        title: document.getElementById('field-title').value.trim(),
+        desc: document.getElementById('field-desc').value.trim(),
+        must: document.getElementById('field-must').checked
+      };
+
+      if (!newItem.title) return;
+
+      if (idx >= 0) {
+        appData.days[currentDayIndex].items[idx] = newItem;
+      } else {
+        appData.days[currentDayIndex].items.push(newItem);
+      }
+
+      closeItemModal();
+      persistChanges('行程已成功儲存！✨');
+    }
+
+    let resetConfirmPending = false;
+    let resetTimer = null;
+    function resetDefaultItinerary() {
+      if (!resetConfirmPending) {
+        resetConfirmPending = true;
+        showToast('再按一次「恢復預設」即可還原初始行程 ⚠️');
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(() => { resetConfirmPending = false; }, 3500);
+        return;
+      }
+      resetConfirmPending = false;
+      appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+      persistChanges('已重設為原始預設行程！');
+    }
+
+    function renderFlights() {
+      const f = appData.flights;
+      const body = document.getElementById('flight-card-body');
+      if (!body) return;
+      body.innerHTML = `
+        <div class="ehon-card-sm bg-[#FFFCF6] p-3.5 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="ehon-pill bg-[#F6D27A] px-2.5 py-0.5 text-xs font-bold">🛫 去程抵達</span>
+            <span class="text-xs font-bold">2026/11/20 (五)</span>
+          </div>
+          <div class="text-base font-bold pt-1">${escapeHtml(f.outboundCode)}</div>
+          <p class="text-xs sm:text-sm text-[#3E3A39]/85">${escapeHtml(f.outboundTime)}</p>
+        </div>
+
+        <div class="ehon-card-sm bg-[#FFFCF6] p-3.5 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="ehon-pill bg-[#B9DAA5] px-2.5 py-0.5 text-xs font-bold">🛬 回程出發</span>
+            <span class="text-xs font-bold">2026/11/27 (五)</span>
+          </div>
+          <div class="text-base font-bold pt-1">${escapeHtml(f.inboundCode)}</div>
+          <p class="text-xs sm:text-sm text-[#3E3A39]/85">${escapeHtml(f.inboundTime)}</p>
+        </div>
+      `;
+    }
+
+    function openFlightModal() {
+      document.getElementById('fl-out-code').value = appData.flights.outboundCode;
+      document.getElementById('fl-out-time').value = appData.flights.outboundTime;
+      document.getElementById('fl-in-code').value = appData.flights.inboundCode;
+      document.getElementById('fl-in-time').value = appData.flights.inboundTime;
+      const modal = document.getElementById('flight-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeFlightModal() {
+      const modal = document.getElementById('flight-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function saveFlightInfo(e) {
+      e.preventDefault();
+      appData.flights.outboundCode = document.getElementById('fl-out-code').value.trim();
+      appData.flights.outboundTime = document.getElementById('fl-out-time').value.trim();
+      appData.flights.inboundCode = document.getElementById('fl-in-code').value.trim();
+      appData.flights.inboundTime = document.getElementById('fl-in-time').value.trim();
+      closeFlightModal();
+      persistChanges('航班資訊已更新！');
+    }
+
+    function renderChecklists() {
+      ['preTrip', 'packing', 'shopping'].forEach(key => {
+        const list = appData.checklists[key] || [];
+        const ul = document.getElementById(`list-${key}`);
+        const prog = document.getElementById(`progress-${key}`);
+        const bar = document.getElementById(`bar-${key}`);
+        if (!ul || !prog || !bar) return;
+
+        const doneCount = list.filter(i => i.checked).length;
+        const pct = list.length ? Math.round((doneCount / list.length) * 100) : 0;
+
+        prog.textContent = `${doneCount}/${list.length}`;
+        bar.style.width = `${pct}%`;
+
+        ul.innerHTML = list.map((item, idx) => `
+          <li class="flex items-center justify-between gap-2 bg-[#FFFCF6] border-2 border-[#3E3A39] rounded-xl px-2.5 py-2">
+            <label class="flex items-center gap-2 cursor-pointer flex-1 min-w-0">
+              <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleTodo('${key}', ${idx})"
+                     class="w-4 h-4 shrink-0 accent-[#3E3A39] cursor-pointer" />
+              <span class="text-xs sm:text-sm leading-snug break-words ${item.checked ? 'todo-checked' : ''}">${escapeHtml(item.text)}</span>
+            </label>
+            <button onclick="deleteTodo('${key}', ${idx})" class="text-xs text-[#3E3A39]/50 hover:text-[#3E3A39] px-1 shrink-0" title="刪除">✕</button>
+          </li>
+        `).join('');
+      });
+    }
+
+    function toggleTodo(key, idx) {
+      appData.checklists[key][idx].checked = !appData.checklists[key][idx].checked;
+      persistChanges(null);
+    }
+
+    function addTodoItem(e, key) {
+      e.preventDefault();
+      const input = document.getElementById(`input-${key}`);
+      if (!input) return;
+      const text = input.value.trim();
+      if (!text) return;
+      appData.checklists[key].push({ text, checked: false });
+      input.value = '';
+      persistChanges('已新增項目！');
+    }
+
+    function deleteTodo(key, idx) {
+      appData.checklists[key].splice(idx, 1);
+      persistChanges('已刪除項目！');
+    }
+
+    function openSyncModal() {
+      updateSyncUiDisplay();
+      const modal = document.getElementById('sync-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeSyncModal() {
+      const modal = document.getElementById('sync-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    async function triggerAppleShare() {
+      const inviteUrl = `${window.location.origin}${window.location.pathname}?room=${encodeURIComponent(currentRoomId)}`;
+      const shareData = {
+        title: '2026 廣島・岡山・尾道 8天7夜親子自駕繪本手冊',
+        text: `一起加入我們的親子自駕繪本行程手冊（房間：${currentRoomId}）！`,
+        url: inviteUrl
+      };
+
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+          showToast('已開啟 Apple 共享選單！');
+        } catch (err) {
+          if (err && err.name !== 'AbortError') copyInviteUrl();
+        }
+      } else {
+        copyInviteUrl();
+      }
+    }
+
+    function copyInviteUrl() {
+      const urlInput = document.getElementById('sync-invite-url');
+      if (!urlInput) return;
+      urlInput.select();
+      urlInput.setSelectionRange(0, 99999);
+      try {
+        document.execCommand('copy');
+        showToast('已複製專屬共享連結！');
+      } catch (e) {
+        showToast('請手動複製連結');
+      }
+    }
+
+    function switchRoom() {
+      const newRoom = document.getElementById('input-room-code').value.trim();
+      if (!newRoom) {
+        showToast('請輸入房間代碼');
+        return;
+      }
+      const newUrl = `${window.location.origin}${window.location.pathname}?room=${encodeURIComponent(newRoom)}`;
+      window.location.href = newUrl;
+    }
+
+    function openPwaModal() {
+      const modal = document.getElementById('pwa-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closePwaModal() {
+      const modal = document.getElementById('pwa-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function updateCountdown() {
+      const targetDate = new Date('2026-11-20T10:25:00');
+      const now = new Date();
+      const diff = targetDate - now;
+
+      const dEl = document.getElementById('cd-days');
+      const hEl = document.getElementById('cd-hours');
+      const mEl = document.getElementById('cd-mins');
+      const sEl = document.getElementById('cd-secs');
+      if (!dEl) return;
+
+      if (diff <= 0) {
+        dEl.textContent = '0';
+        hEl.textContent = '0';
+        mEl.textContent = '0';
+        sEl.textContent = '0';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+      dEl.textContent = days;
+      hEl.textContent = hours;
+      mEl.textContent = mins;
+      sEl.textContent = secs;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function renderAll() {
+      renderDayTabs();
+      renderDayContent();
+      renderFlights();
+      renderChecklists();
+    }
+  </script>
+</body>
+</html>
